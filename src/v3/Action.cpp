@@ -25,6 +25,12 @@ etcdv3::Action::Action(etcdv3::ActionParameters&& params) {
 etcdv3::Action::~Action() {
   cq_.Shutdown();
 
+  void* tag;
+  bool ok;
+  while (cq_.Next(&tag, &ok)) {
+    // Optionally, handle or log the tag/ok if needed
+  }
+
   // cancel on-the-fly calls
   context.TryCancel();
 }
